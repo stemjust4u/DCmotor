@@ -7,9 +7,13 @@ class DCMotor:
   #the min_duty and max_duty are defined for 15000Hz frequency
   #you can pass as arguments
   def __init__(self, pin1, pin2, enable_pin, min_duty=0, max_duty=100):
-    self.pin1 = pin1
-    self.pin2= pin2
-    self.enable_pin = enable_pin
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
+    frequency = 1500
+    self.pin1 = GPIO.setup(pin1, GPIO.OUT)
+    self.pin2= GPIO.setup(pin2, GPIO.OUT)
+    self.enable_pin = GPIO.PWM(enable_pin, frequency)
+    self.enable_pin.start(0)
     self.min_duty = min_duty
     self.max_duty = max_duty
   
